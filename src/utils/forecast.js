@@ -1,7 +1,7 @@
 const request = require("request");
 
 const forecast = (latitude, longitude, callback) => {
-  const url = `https://api.darksky.net/forecast/bee2bc0e83b50fcb05ff942b4cd2fb08/${latitude},${longitude}?lang=pl`;
+  const url = `https://api.darksky.net/forecast/bee2bc0e83b50fcb05ff942b4cd2fb08/${latitude},${longitude}?lang=pl&units=si`;
 
   request({url, json: true}, (error, {body}) => {
     if (error) {
@@ -11,7 +11,8 @@ const forecast = (latitude, longitude, callback) => {
     } else {
       callback(
         undefined,
-        `Average tem is ${body.daily.data[0].summary} It is currenlty ${body.currently.temperature} degrees out. There is a ${body.currently.precipProbability}% chance of rain`
+        `${body.daily.data[0].summary} Aktualnie temperatura to ${body.currently.temperature} stopni Celsjusza. Ciśnienie atmosferyczne wynosi ${body.currently.pressure} hPa. Prawdopodobieństwo wystąpienia opadów wynosi ${body.currently.precipProbability}%. Prędkość wiatru ${body.currently.windSpeed} m/s`
+        // console.log(body.daily.data[0])
       );
     }
   });
